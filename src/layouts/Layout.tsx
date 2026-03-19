@@ -1,19 +1,15 @@
 import { Outlet } from 'react-router';
-import NavBar from '../components/NavBar';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Layout() {
   return (
     <section className="min-h-screen flex flex-col">
-      <header>
-        <NavBar />
-      </header>
+      <Header />
       <main className="flex-1">
         <Outlet />
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </section>
   );
 }
