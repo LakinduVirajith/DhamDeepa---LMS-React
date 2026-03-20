@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
+import { Toaster } from 'sonner';
 
 const PUBLISHER_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHER_KEY) {
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
         signUpForceRedirectUrl="/about"
       >
         <App />
+        <Toaster />
       </ClerkProvider>
     </BrowserRouter>
   </StrictMode>,

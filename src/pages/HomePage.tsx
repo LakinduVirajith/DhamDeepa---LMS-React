@@ -14,27 +14,28 @@ export default function HomePage() {
     bgColor = 'bg-gray-800';
   } else {
     const status = (user?.publicMetadata?.status as string) ?? '';
-    const role = (user?.publicMetadata?.roles as string) ?? '';
+    const role = (user?.publicMetadata?.role as string) ?? '';
 
     if (status !== USER_STATUS.ACTIVE) {
-      message = 'Your account is not active. Please contact admin.';
+      message =
+        'Your account is currently inactive. Please contact your administrator to activate it.';
       bgColor = 'bg-yellow-600';
     } else {
       switch (role) {
         case USER_ROLES.ADMIN:
-          message = 'Welcome Admin! You have full access.';
+          message = `Hello ${user?.firstName} [Admin]. You have full access to manage teachers, prefects, and system roles.`;
           bgColor = 'bg-red-600';
           break;
         case USER_ROLES.TEACHER:
-          message = 'Welcome Teacher! You can manage your students.';
+          message = `Hello ${user?.firstName} [Teacher]. You have full access to manage students, prefects, and competitions.`;
           bgColor = 'bg-blue-600';
           break;
         case USER_ROLES.PREFECT:
-          message = 'Welcome Prefect! You can manage prefect duties.';
+          message = `Hello ${user?.firstName} [Prefect]. You have full access to manage competitions.`;
           bgColor = 'bg-green-600';
           break;
         default:
-          message = 'Welcome User! Your role is undefined.';
+          message = `Hello ${user?.firstName}. Your role is undefined. Please contact admin if this is unexpected.`;
           bgColor = 'bg-gray-600';
       }
     }
