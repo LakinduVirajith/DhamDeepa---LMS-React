@@ -63,7 +63,7 @@ export default function Header() {
   const AuthSection = ({ mobile = false }: { mobile?: boolean }) => {
     if (!isLoaded) return null;
 
-    const role = (user?.publicMetadata?.roles as UserRole) ?? '';
+    const role = (user?.publicMetadata?.role as UserRole) ?? '';
     const status = (user?.publicMetadata?.status as UserStatus) ?? '';
 
     const getDashboardLabel = () => {
