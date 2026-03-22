@@ -4,6 +4,10 @@ import Layout from './layouts/Layout';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
+import DashboardLayout from './layouts/DashboardLayout';
+import NotFoundPage from './pages/NotFoundPage';
+import UserManagementPage from './pages/dashboard/admin/UserManagementPage';
+import AccessControlPage from './pages/dashboard/admin/AccessControlPage';
 
 function App() {
   return (
@@ -16,6 +20,15 @@ function App() {
         <Route path="contact" element={<ContactPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
       </Route>
+
+      {/* PRIVATE LAYOUT */}
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<UserManagementPage />} />
+        <Route path="admin/users" element={<UserManagementPage />} />
+        <Route path="admin/access" element={<AccessControlPage />} />
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
