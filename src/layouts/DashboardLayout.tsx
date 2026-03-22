@@ -30,7 +30,7 @@ export default function DashboardLayout() {
       <SideNav collapsed={collapsed} setCollapsed={setCollapsed} />
 
       <main
-        className={`flex-1 p-8 overflow-y-auto min-h-screen bg-gray-50 transition-all duration-300`}
+        className={`flex-1 overflow-y-auto min-h-screen bg-gray-50 transition-all duration-300`}
         style={{ marginLeft: collapsed ? '4rem' : '16rem' }}
       >
         <Outlet />

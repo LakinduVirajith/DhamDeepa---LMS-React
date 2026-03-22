@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { Toaster } from 'sonner';
+import { TooltipProvider } from './components/ui/tooltip.tsx';
+import { ThemeProvider } from './context/ThemeContext.tsx';
 
 const PUBLISHER_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHER_KEY) {
@@ -22,7 +24,11 @@ createRoot(document.getElementById('root')!).render(
         signInForceRedirectUrl="/"
         signUpForceRedirectUrl="/about"
       >
-        <App />
+        <TooltipProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </TooltipProvider>
         <Toaster />
       </ClerkProvider>
     </BrowserRouter>

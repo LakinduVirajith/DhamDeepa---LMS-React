@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { USER_ROLES } from '@/constants/enums';
-import { useUser } from '@clerk/react';
+import { UserButton, useUser } from '@clerk/react';
 
 interface SideNavProps {
   collapsed: boolean;
@@ -199,11 +199,37 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       </nav>
 
       {/* FOOTER */}
-      {!collapsed && (
-        <div className="p-4 border-t border-slate-700 text-sm text-slate-400">
-          © {new Date().getFullYear()} DhamDeepa
+      <div className="border-t border-slate-700 p-3">
+        <div className="flex items-center gap-3">
+          {/* Clerk Avatar */}
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: 'w-9 h-9',
+              },
+            }}
+          />
+
+          {/* User Info (only when expanded) */}
+          {!collapsed && (
+            <div className="flex-1 overflow-hidden">
+              <p className="text-sm font-medium text-white truncate">
+                {user?.fullName || 'User'}
+              </p>
+              <p className="text-xs text-slate-400 truncate">
+                {user?.primaryEmailAddress?.emailAddress}
+              </p>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* App Footer Text */}
+        {!collapsed && (
+          <p className="mt-3 text-xs text-slate-500 text-center">
+            © {new Date().getFullYear()} DhamDeepa
+          </p>
+        )}
+      </div>
     </aside>
   );
 }
