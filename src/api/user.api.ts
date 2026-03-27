@@ -34,17 +34,23 @@ export const getAllUsers = async (
 
 // Get user stats
 export const getUserStats = async (token: string) => {
-  const res = await fetchWithAuth('/api/v1/users/stats', token);
+  const res = await fetchWithAuth('/api/v1/users/statistics', token);
+  return res.json();
+};
+
+// Get user by id
+export const getUserById = async (token: string, userId: string) => {
+  const res = await fetchWithAuth(`/api/v1/users/${userId}`, token);
   return res.json();
 };
 
 // Update user role
 export const updateUserRole = async (
   token: string,
-  clerkId: string,
+  userId: string,
   role: UserRole,
 ) => {
-  const res = await fetchWithAuth(`/api/v1/users/${clerkId}/role`, token, {
+  const res = await fetchWithAuth(`/api/v1/users/${userId}/role`, token, {
     method: 'PUT',
     body: JSON.stringify({ role }),
   });
@@ -55,10 +61,10 @@ export const updateUserRole = async (
 // Update user status
 export const updateUserStatus = async (
   token: string,
-  clerkId: string,
+  userId: string,
   status: UserStatus,
 ) => {
-  const res = await fetchWithAuth(`/api/v1/users/${clerkId}/status`, token, {
+  const res = await fetchWithAuth(`/api/v1/users/${userId}/status`, token, {
     method: 'PUT',
     body: JSON.stringify({ status }),
   });

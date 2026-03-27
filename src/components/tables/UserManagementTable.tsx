@@ -14,23 +14,18 @@ import {
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
-import { roleColor, statusColor } from '@/utils/tableHelpers';
 import { formatDate } from '@/utils/dateHelpers';
 
 interface UsersTableProps {
   users: any[];
   selectedUser: any;
   setSelectedUser: (user: any) => void;
-  hoveredUserId: string | null;
-  setHoveredUserId: (id: string | null) => void;
 }
 
-export default function UsersTable({
+export default function UserManagementTable({
   users,
   selectedUser,
   setSelectedUser,
-  hoveredUserId,
-  setHoveredUserId,
 }: UsersTableProps) {
   return (
     <Table>
@@ -53,9 +48,7 @@ export default function UsersTable({
         {users.map((user) => (
           <TableRow
             key={user._id}
-            className={`cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 ${selectedUser?._id === user._id ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
-            onMouseEnter={() => setHoveredUserId(user._id)}
-            onMouseLeave={() => setHoveredUserId(null)}
+            className={`cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors ${selectedUser?._id === user._id ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
             onClick={() => setSelectedUser(user)}
           >
             <TableCell>
@@ -63,29 +56,22 @@ export default function UsersTable({
             </TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>
-              <Badge variant={roleColor(user.role)}>{user.role}</Badge>
+              <Badge>{user.role}</Badge>
             </TableCell>
             <TableCell>
-              <Badge variant={statusColor(user.status)}>{user.status}</Badge>
+              <Badge variant="outline">{user.status}</Badge>
             </TableCell>
             <TableCell>{formatDate(user.createdAt)}</TableCell>
             <TableCell>{formatDate(user.updatedAt)}</TableCell>
-            <TableCell className="flex gap-2 opacity-0 hover:opacity-100 transition-opacity duration-200">
-              {(hoveredUserId === user._id ||
-                selectedUser?._id === user._id) && (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setSelectedUser(user)}
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>View User Details</TooltipContent>
-                </Tooltip>
-              )}
+            <TableCell className="opacity-0 hover:opacity-100 transition-opacity">
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button size="sm" onClick={() => setSelectedUser(user)}>
+                    <Eye className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>View User Details</TooltipContent>
+              </Tooltip>
             </TableCell>
           </TableRow>
         ))}

@@ -6,7 +6,6 @@ import './index.css';
 import App from './App.tsx';
 import { Toaster } from 'sonner';
 import { TooltipProvider } from './components/ui/tooltip.tsx';
-import { ThemeProvider } from './context/ThemeContext.tsx';
 
 const PUBLISHER_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHER_KEY) {
@@ -25,9 +24,7 @@ createRoot(document.getElementById('root')!).render(
         signUpForceRedirectUrl="/about"
       >
         <TooltipProvider>
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
+          <App />
         </TooltipProvider>
         <Toaster />
       </ClerkProvider>
