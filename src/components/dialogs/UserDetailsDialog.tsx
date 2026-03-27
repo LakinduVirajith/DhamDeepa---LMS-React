@@ -13,30 +13,22 @@ import {
   TooltipContent,
 } from '@/components/ui/tooltip';
 import { formatDateTime } from '@/utils/dateHelpers';
-import { useTheme } from '@/context/ThemeContext';
+import type { User } from '@/constants/types';
 
-interface UserDetailDialogProps {
-  user: any;
-  setUser: (user: any) => void;
+interface UserDetailsDialogProps {
+  user: User | null;
+  setUser: (user: User | null) => void;
 }
 
 export default function UserDetailDialog({
   user,
   setUser,
-}: UserDetailDialogProps) {
-  const { darkMode } = useTheme();
+}: UserDetailsDialogProps) {
   if (!user) return null;
-
-  const truncateClerkId = (id: string) => {
-    if (id.length <= 15) return id;
-    return `${id.slice(0, 8)}...${id.slice(-6)}`;
-  };
 
   return (
     <Dialog open={!!user} onOpenChange={() => setUser(null)}>
-      <DialogContent
-        className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} w-[400px] transition-colors duration-300`}
-      >
+      <DialogContent className="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white w-[400px] transition-colors duration-300">
         <DialogHeader>
           <DialogTitle>User Details</DialogTitle>
           <DialogDescription>View detailed user information</DialogDescription>
@@ -61,27 +53,19 @@ export default function UserDetailDialog({
             <strong>Last Updated:</strong> {formatDateTime(user.updatedAt)}
           </p>
           <p className="flex items-center gap-2">
-            <strong>Clerk ID:</strong>
-            <span className="truncate max-w-[180px]">
-              {truncateClerkId(user.clerkId)}
-              {'...'}
-            </span>
+            <strong>User ID:</strong> {user._id}
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   size="sm"
                   variant="outline"
-                  className={`${
-                    darkMode
-                      ? 'border-gray-600 bg-gray-700 text-white hover:bg-gray-600'
-                      : 'border-gray-300 bg-white text-gray-900 hover:bg-gray-100'
-                  }`}
-                  onClick={() => navigator.clipboard.writeText(user.clerkId)}
+                  className="border-gray-300 bg-white text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                  onClick={() => navigator.clipboard.writeText(user._id)}
                 >
                   <Copy className="w-4 h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Copy Clerk ID</TooltipContent>
+              <TooltipContent>Copy User ID</TooltipContent>
             </Tooltip>
           </p>
         </div>

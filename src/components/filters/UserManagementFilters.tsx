@@ -25,7 +25,7 @@ interface FiltersProps {
   onClear: () => void;
 }
 
-export default function Filters({
+export default function UserManagementFilters({
   roleFilter,
   setRoleFilter,
   statusFilter,
@@ -36,7 +36,7 @@ export default function Filters({
   onClear,
 }: FiltersProps) {
   return (
-    <div className="flex flex-wrap gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md transition-colors duration-300">
+    <div className="flex flex-wrap gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md transition-colors">
       <Input
         placeholder="Search by name or email..."
         className="w-[250px]"
@@ -45,10 +45,10 @@ export default function Filters({
       />
 
       <Select
-        value={roleFilter}
-        onValueChange={(v) => setRoleFilter(v as UserRole)}
+        value={roleFilter || ''}
+        onValueChange={(v) => setRoleFilter(v ? (v as UserRole) : undefined)}
       >
-        <SelectTrigger className="w-[150px]">
+        <SelectTrigger className="w-[150px] cursor-pointer">
           <SelectValue placeholder="All Roles" />
         </SelectTrigger>
         <SelectContent>
@@ -61,10 +61,12 @@ export default function Filters({
       </Select>
 
       <Select
-        value={statusFilter}
-        onValueChange={(v) => setStatusFilter(v as UserStatus)}
+        value={statusFilter || ''}
+        onValueChange={(v) =>
+          setStatusFilter(v ? (v as UserStatus) : undefined)
+        }
       >
-        <SelectTrigger className="w-[150px]">
+        <SelectTrigger className="w-[150px] cursor-pointer">
           <SelectValue placeholder="All Status" />
         </SelectTrigger>
         <SelectContent>
@@ -76,10 +78,10 @@ export default function Filters({
         </SelectContent>
       </Select>
 
-      <Button className="ml-auto" onClick={onApply}>
+      <Button className="ml-auto cursor-pointer" onClick={onApply}>
         Apply Filters
       </Button>
-      <Button variant="outline" onClick={onClear}>
+      <Button variant="outline" className="cursor-pointer" onClick={onClear}>
         Clear Filters
       </Button>
     </div>

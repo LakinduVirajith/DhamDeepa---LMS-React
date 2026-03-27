@@ -10,23 +10,7 @@ import {
 import { useState, useEffect } from 'react';
 import { USER_ROLES } from '@/constants/enums';
 import { UserButton, useUser } from '@clerk/react';
-
-interface SideNavProps {
-  collapsed: boolean;
-  setCollapsed: (value: boolean) => void;
-}
-
-interface MenuChild {
-  name: string;
-  path: string;
-}
-
-interface MenuItem {
-  name: string;
-  icon: any;
-  children: MenuChild[];
-  roles: string[]; // allowed roles
-}
+import type { MenuItem, SideNavProps } from '@/constants/types';
 
 export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
   const { user, isLoaded } = useUser();
@@ -122,10 +106,10 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
     <aside
       className={`${
         collapsed ? 'w-16' : 'w-64'
-      } h-screen bg-slate-900 text-white flex flex-col border-r fixed left-0 top-0 transition-all duration-300`}
+      } h-screen bg-slate-900 text-white flex flex-col border-r fixed left-0 top-0`}
     >
       {/* HEADER */}
-      <div className="px-4 py-4 border-b border-slate-700 flex items-center justify-between">
+      <div className="p-4 border-b border-slate-700 flex items-center justify-between">
         {!collapsed && (
           <div>
             <h2 className="text-xl font-bold tracking-wide">DhamDeepa</h2>
@@ -155,9 +139,7 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
                   onClick={() =>
                     setOpenMenu(openMenu === item.name ? null : item.name)
                   }
-                  className={`flex items-center justify-between w-full px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition ${
-                    collapsed ? 'justify-center' : ''
-                  }`}
+                  className="flex items-center justify-between w-full px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white"
                 >
                   <div className="flex items-center gap-3">
                     <Icon size={18} />
@@ -181,7 +163,7 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
                         key={child.path}
                         to={child.path}
                         className={({ isActive }) =>
-                          `block px-3 py-2 rounded-md text-sm transition ${
+                          `block px-3 py-2 rounded-md text-sm ${
                             isActive
                               ? 'bg-indigo-600 text-white'
                               : 'text-slate-400 hover:bg-slate-800 hover:text-white'
@@ -202,15 +184,9 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       <div className="border-t border-slate-700 p-3">
         <div className="flex items-center gap-3">
           {/* Clerk Avatar */}
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: 'w-9 h-9',
-              },
-            }}
-          />
+          <UserButton />
 
-          {/* User Info (only when expanded) */}
+          {/* User Info */}
           {!collapsed && (
             <div className="flex-1 overflow-hidden">
               <p className="text-sm font-medium text-white truncate">

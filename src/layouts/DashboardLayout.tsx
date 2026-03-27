@@ -1,4 +1,5 @@
 import SideNav from '@/components/SideNav';
+import TopBar from '@/components/TopBar';
 import { USER_ROLES, type UserRole } from '@/constants/enums';
 import { useUser } from '@clerk/react';
 import { useEffect, useState } from 'react';
@@ -26,14 +27,20 @@ export default function DashboardLayout() {
 
   if (!isLoaded || !user) return null;
   return (
-    <section className="min-h-screen flex flex-row">
+    <section className="transition-all duration-300">
       <SideNav collapsed={collapsed} setCollapsed={setCollapsed} />
 
       <main
-        className={`flex-1 overflow-y-auto min-h-screen bg-gray-50 transition-all duration-300`}
+        className="
+          flex flex-col
+          bg-gray-50 dark:bg-gray-900 
+          text-gray-900 dark:text-white"
         style={{ marginLeft: collapsed ? '4rem' : '16rem' }}
       >
-        <Outlet />
+        <TopBar />
+        <div className="p-4">
+          <Outlet />
+        </div>
       </main>
     </section>
   );
