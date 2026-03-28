@@ -46,8 +46,8 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       icon: UserCheck,
       roles: [USER_ROLES.ADMIN],
       children: [
-        { name: 'View Teachers', path: '/admin/teachers/view' },
-        { name: 'Create Teacher', path: '/admin/teachers/create' },
+        { name: 'All Teachers', path: 'admin/teachers/all' },
+        { name: 'Teacher Profile', path: 'admin/teachers/profile' },
       ],
     },
     {

@@ -18,17 +18,18 @@ import { formatDate } from '@/utils/dateHelpers';
 
 interface UsersTableProps {
   users: any[];
-  selectedUser: any;
-  setSelectedUser: (user: any) => void;
+  selectedId: string | null;
+  setSelectedId: (string: string | null) => void;
 }
 
 export default function UserManagementTable({
   users,
-  selectedUser,
-  setSelectedUser,
+  selectedId,
+  setSelectedId,
 }: UsersTableProps) {
   return (
     <Table>
+      {/* Header */}
       <TableHeader>
         <TableRow className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
           {[
@@ -44,12 +45,14 @@ export default function UserManagementTable({
           ))}
         </TableRow>
       </TableHeader>
+
+      {/* Body */}
       <TableBody>
         {users.map((user) => (
           <TableRow
             key={user._id}
-            className={`cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors ${selectedUser?._id === user._id ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
-            onClick={() => setSelectedUser(user)}
+            className={`cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors ${selectedId === user._id ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+            onClick={() => setSelectedId(user._id)}
           >
             <TableCell>
               {user.firstName} {user.lastName}
@@ -66,7 +69,7 @@ export default function UserManagementTable({
             <TableCell className="opacity-0 hover:opacity-100 transition-opacity">
               <Tooltip>
                 <TooltipTrigger>
-                  <Button size="sm" onClick={() => setSelectedUser(user)}>
+                  <Button size="sm" onClick={() => setSelectedId(user._id)}>
                     <Eye className="w-4 h-4" />
                   </Button>
                 </TooltipTrigger>

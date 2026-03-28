@@ -32,6 +32,7 @@ export interface User {
   email: string;
   role: string;
   status: string;
+  avatarUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -47,4 +48,40 @@ export interface UserStats {
     inactive: number;
   };
   totalUsers: number;
+}
+
+// Teacher Types
+export interface Teacher {
+  _id: string;
+  user: User;
+  personalInfo: {
+    dateOfBirth: string;
+    gender: string;
+    nic: string;
+    contact: {
+      phoneNumber: string;
+    };
+    address: {
+      street: string;
+      city: string;
+      postalCode: string;
+      policeDivision: string;
+    };
+  };
+  professionalInfo: {
+    qualifications?: string[];
+    yearsOfExperience?: number;
+    subjects: string[];
+    bio?: string;
+    maxStudents?: number;
+    employmentType: string;
+    salary?: number;
+    joinedDate?: string;
+  };
+  bankInfo?: {
+    bankName?: string;
+    accountNumber?: string;
+  };
+  createdAt: string;
+  updatedAt: string;
 }

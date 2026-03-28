@@ -8,6 +8,8 @@ import DashboardLayout from './layouts/DashboardLayout';
 import NotFoundPage from './pages/NotFoundPage';
 import UserManagementPage from './pages/dashboard/admin/UserManagementPage';
 import AccessControlPage from './pages/dashboard/admin/AccessControlPage';
+import AllTeachersPage from './pages/dashboard/admin/AllTeachersPage';
+import TeacherProfilePage from './pages/dashboard/admin/TeacherProfilePage';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route index element={<UserManagementPage />} />
         <Route path="admin/users" element={<UserManagementPage />} />
         <Route path="admin/access" element={<AccessControlPage />} />
+        <Route path="admin/teachers/all" element={<AllTeachersPage />} />
+        <Route path="admin/teachers/profile" element={<TeacherProfilePage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

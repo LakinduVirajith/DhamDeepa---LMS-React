@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@clerk/react';
-import { getUserById, updateUserRole, updateUserStatus } from '@/api/user.api';
+import { getUserById, updateUserRole, updateUserStatus } from '@/api/users.api';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';

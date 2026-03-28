@@ -16,11 +16,11 @@ import {
 
 interface FiltersProps {
   roleFilter?: UserRole;
-  setRoleFilter: (role?: UserRole) => void;
+  setRoleFilter: (v?: UserRole) => void;
   statusFilter?: UserStatus;
-  setStatusFilter: (status?: UserStatus) => void;
+  setStatusFilter: (v?: UserStatus) => void;
   searchFilter: string;
-  setSearchFilter: (value: string) => void;
+  setSearchFilter: (v: string) => void;
   onApply: () => void;
   onClear: () => void;
 }
@@ -37,6 +37,7 @@ export default function UserManagementFilters({
 }: FiltersProps) {
   return (
     <div className="flex flex-wrap gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md transition-colors">
+      {/* Search */}
       <Input
         placeholder="Search by name or email..."
         className="w-[250px]"
@@ -44,6 +45,7 @@ export default function UserManagementFilters({
         onChange={(e) => setSearchFilter(e.target.value)}
       />
 
+      {/* Role */}
       <Select
         value={roleFilter || ''}
         onValueChange={(v) => setRoleFilter(v ? (v as UserRole) : undefined)}
@@ -60,6 +62,7 @@ export default function UserManagementFilters({
         </SelectContent>
       </Select>
 
+      {/* Status */}
       <Select
         value={statusFilter || ''}
         onValueChange={(v) =>
@@ -78,6 +81,7 @@ export default function UserManagementFilters({
         </SelectContent>
       </Select>
 
+      {/* Actions */}
       <Button className="ml-auto cursor-pointer" onClick={onApply}>
         Apply Filters
       </Button>

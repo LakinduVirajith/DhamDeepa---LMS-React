@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@clerk/react';
-import { getAllUsers, getUserStats } from '@/api/user.api';
+import { getAllUsers, getUserStats } from '@/api/users.api';
+
 import StatisticBadges from '@/components/common/StatisticBadges';
 import UserManagementFilters from '@/components/filters/UserManagementFilters';
 import UserManagementTable from '@/components/tables/UserManagementTable';
-import LoadingTableSkeleton from '@/components/common/LoadingTableSkeleton';
-import UserDetailsDialog from '@/components/dialogs/UserDetailsDialog';
+import TableSkeleton from '@/components/common/TableSkeleton';
+import UserIdDialog from '@/components/dialogs/UserIdDialog';
 import Pagination from '@/components/common/Pagination';
+
 import type { UserRole, UserStatus } from '@/constants/enums';
 import type { User, UserStats } from '@/constants/types';
 
@@ -16,7 +18,7 @@ export default function UserManagementPage() {
   // Data
   const [users, setUsers] = useState<User[]>([]);
   const [stats, setStats] = useState<UserStats | null>(null);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Filters
@@ -95,6 +97,8 @@ export default function UserManagementPage() {
   return (
     <div className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white p-6 space-y-6 min-h-screen">
       <StatisticBadges stats={stats} />
+
+      {/* Filters */}
       <UserManagementFilters
         roleFilter={roleFilter}
         setRoleFilter={setRoleFilter}
@@ -106,9 +110,10 @@ export default function UserManagementPage() {
         onClear={handleClearFilters}
       />
 
+      {/* Table */}
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md overflow-x-auto">
         {loading ? (
-          <LoadingTableSkeleton
+          <TableSkeleton
             columns={[
               'Name',
               'Email',
@@ -118,7 +123,7 @@ export default function UserManagementPage() {
               'Last Updated',
               'Actions',
             ]}
-            rows={10}
+            rows={rowsPerPage}
           />
         ) : users.length === 0 ? (
           <div className="p-6 text-center text-gray-500 space-y-2">
@@ -127,12 +132,13 @@ export default function UserManagementPage() {
         ) : (
           <UserManagementTable
             users={users}
-            selectedUser={selectedUser}
-            setSelectedUser={setSelectedUser}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
           />
         )}
       </div>
 
+      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -140,7 +146,8 @@ export default function UserManagementPage() {
         setRowsPerPage={setRowsPerPage}
         totalPages={totalPages}
       />
-      <UserDetailsDialog user={selectedUser} setUser={setSelectedUser} />
+
+      <UserIdDialog userType="User" id={selectedId} setId={setSelectedId} />
     </div>
   );
 }
