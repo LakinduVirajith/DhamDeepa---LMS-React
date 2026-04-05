@@ -8,8 +8,9 @@ import TeacherCard from '@/components/cards/TeacherCard';
 import UserIdDialog from '@/components/dialogs/UserIdDialog';
 import CardSkeleton from '@/components/common/CardSkeleton';
 
-import type { Teacher } from '@/constants/types';
-import type { UserStatus, EmploymentType } from '@/constants/enums';
+import type { Teacher } from '@/types/teacher/teacher.types';
+import type { UserStatus } from '@/types/user/user.enums';
+import type { EmploymentType } from '@/types/teacher/teacher.enums';
 
 export default function AllTeachersPage() {
   const { getToken } = useAuth();

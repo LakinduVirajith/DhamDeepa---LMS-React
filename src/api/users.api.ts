@@ -1,5 +1,7 @@
 import { fetchWithAuth } from './client';
-import { type UserRole, type UserStatus } from '@/constants/enums';
+import type { getAllUsersResponse } from '@/types/user/user.dto';
+import type { UserRole, UserStatus } from '@/types/user/user.enums';
+import type { User, UserStats } from '@/types/user/user.types';
 
 // Get all users with filters
 export const getAllUsers = async (
@@ -17,7 +19,7 @@ export const getAllUsers = async (
     status?: UserStatus;
     search?: string;
   } = {},
-) => {
+): Promise<getAllUsersResponse> => {
   const query = new URLSearchParams();
 
   query.append('page', String(page));
@@ -29,19 +31,24 @@ export const getAllUsers = async (
 
   const res = await fetchWithAuth(`/api/v1/users?${query.toString()}`, token);
 
-  return res.json();
+  return (await res.json()) as getAllUsersResponse;
 };
 
 // Get user stats
-export const getUserStats = async (token: string) => {
+export const getUserStats = async (token: string): Promise<UserStats> => {
   const res = await fetchWithAuth('/api/v1/users/statistics', token);
-  return res.json();
+
+  return (await res.json()) as UserStats;
 };
 
 // Get user by id
-export const getUserById = async (token: string, userId: string) => {
+export const getUserById = async (
+  token: string,
+  userId: string,
+): Promise<User> => {
   const res = await fetchWithAuth(`/api/v1/users/${userId}`, token);
-  return res.json();
+
+  return (await res.json()) as User;
 };
 
 // Update user role
@@ -49,13 +56,13 @@ export const updateUserRole = async (
   token: string,
   userId: string,
   role: UserRole,
-) => {
+): Promise<User> => {
   const res = await fetchWithAuth(`/api/v1/users/${userId}/role`, token, {
     method: 'PUT',
     body: JSON.stringify({ role }),
   });
 
-  return res.json();
+  return (await res.json()) as User;
 };
 
 // Update user status
@@ -63,11 +70,11 @@ export const updateUserStatus = async (
   token: string,
   userId: string,
   status: UserStatus,
-) => {
+): Promise<User> => {
   const res = await fetchWithAuth(`/api/v1/users/${userId}/status`, token, {
     method: 'PUT',
     body: JSON.stringify({ status }),
   });
 
-  return res.json();
+  return (await res.json()) as User;
 };

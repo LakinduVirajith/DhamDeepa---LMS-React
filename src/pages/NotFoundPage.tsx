@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
 import { useAuth, useUser } from '@clerk/react';
-import { USER_STATUS, type UserStatus } from '@/constants/enums';
+import { ArrowLeft } from 'lucide-react';
+import { USER_STATUS, type UserStatus } from '@/types/user/user.enums';
 
 export default function NotFoundPage() {
   const { user, isLoaded } = useUser();

@@ -9,8 +9,8 @@ import TableSkeleton from '@/components/common/TableSkeleton';
 import UserIdDialog from '@/components/dialogs/UserIdDialog';
 import Pagination from '@/components/common/Pagination';
 
-import type { UserRole, UserStatus } from '@/constants/enums';
-import type { User, UserStats } from '@/constants/types';
+import type { User, UserStats } from '@/types/user/user.types';
+import type { UserRole, UserStatus } from '@/types/user/user.enums';
 
 export default function UserManagementPage() {
   const { getToken } = useAuth();

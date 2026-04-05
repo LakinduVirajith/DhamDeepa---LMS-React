@@ -1,4 +1,5 @@
-import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import {
   SignInButton,
   SignUpButton,
@@ -6,18 +7,18 @@ import {
   useAuth,
   useUser,
 } from '@clerk/react';
-import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
+
 import {
   USER_ROLES,
   USER_STATUS,
   type UserRole,
   type UserStatus,
-} from '@/constants/enums';
+} from '@/types/user/user.enums';
 
 export default function Header() {
   const { user, isLoaded } = useUser();
@@ -77,6 +78,17 @@ export default function Header() {
       }
     };
 
+    const getDashboardLink = () => {
+      switch (role) {
+        case USER_ROLES.ADMIN:
+          return '/dashboard/admin';
+        case USER_ROLES.TEACHER:
+          return '/dashboard/teachers';
+        case USER_ROLES.PREFECT:
+          return '/dashboard/prefects';
+      }
+    };
+
     return (
       <div
         className={cn(
@@ -87,7 +99,10 @@ export default function Header() {
         {isSignedIn ? (
           <>
             {status === USER_STATUS.ACTIVE && role && (
-              <Link to="/dashboard" onClick={() => mobile && setOpen(false)}>
+              <Link
+                to={getDashboardLink()}
+                onClick={() => mobile && setOpen(false)}
+              >
                 <Button
                   className={cn(
                     'rounded-full px-5 bg-gradient-to-r from-green-400 to-teal-500 text-black hover:opacity-90 shadow-md',

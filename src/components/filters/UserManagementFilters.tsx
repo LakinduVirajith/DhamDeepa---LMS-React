@@ -12,7 +12,7 @@ import {
   USER_STATUS,
   type UserRole,
   type UserStatus,
-} from '@/constants/enums';
+} from '@/types/user/user.enums';
 
 interface FiltersProps {
   roleFilter?: UserRole;

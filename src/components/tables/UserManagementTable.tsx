@@ -14,10 +14,11 @@ import {
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
-import { formatDate } from '@/utils/dateHelpers';
+import { formatDate } from '@/lib/dateFormatters';
+import type { User } from '@/types/user/user.types';
 
 interface UsersTableProps {
-  users: any[];
+  users: User[];
   selectedId: string | null;
   setSelectedId: (string: string | null) => void;
 }

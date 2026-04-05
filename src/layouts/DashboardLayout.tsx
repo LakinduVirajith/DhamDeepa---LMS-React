@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useUser } from '@clerk/react';
+
 import SideNav from '@/components/SideNav';
 import TopBar from '@/components/TopBar';
-import { USER_ROLES, type UserRole } from '@/constants/enums';
-import { useUser } from '@clerk/react';
-import { useEffect, useState } from 'react';
-
-import { Outlet, useNavigate } from 'react-router-dom';
+import { USER_ROLES, type UserRole } from '@/types/user/user.enums';
 
 export default function DashboardLayout() {
   const { user, isLoaded } = useUser();

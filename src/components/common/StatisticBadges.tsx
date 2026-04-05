@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import type { UserStats } from '@/constants/types';
+import type { UserStats } from '@/types/user/user.types';
 
 interface BadgeItem {
   label: string;

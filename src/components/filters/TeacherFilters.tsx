@@ -7,8 +7,8 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { USER_STATUS, type UserStatus } from '@/constants/enums';
-import type { EmploymentType } from '@/constants/enums';
+import { USER_STATUS, type UserStatus } from '@/types/user/user.enums';
+import type { EmploymentType } from '@/types/teacher/teacher.enums';
 
 interface TeacherFiltersProps {
   status?: UserStatus;

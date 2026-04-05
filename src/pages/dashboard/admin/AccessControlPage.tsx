@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useAuth } from '@clerk/react';
 import { getUserById, updateUserRole, updateUserStatus } from '@/api/users.api';
 
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -18,31 +17,25 @@ import {
   USER_STATUS,
   type UserRole,
   type UserStatus,
-} from '@/constants/enums';
+} from '@/types/user/user.enums';
 
-import { formatDate } from '@/utils/dateHelpers';
+import { formatDate } from '@/lib/dateFormatters';
 import { toast } from 'sonner';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
+import SearchBar from '@/components/common/SearchBar';
 
 export default function AccessControlPage() {
   const { getToken } = useAuth();
 
-  const [userId, setUserId] = useState('');
   const [user, setUser] = useState<any>(null);
-
-  const [role, setRole] = useState<UserRole | undefined>();
-  const [status, setStatus] = useState<UserStatus | undefined>();
+  const [role, setRole] = useState<UserRole>();
+  const [status, setStatus] = useState<UserStatus>();
 
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState(false);
 
   // Fetch User
-  const handleFetchUser = async () => {
-    if (!userId) {
-      toast.error('Please enter a User ID to continue.');
-      return;
-    }
-
+  const handleFetch = async (userId: string) => {
     setLoading(true);
     try {
       const token = await getToken({ template: 'dhamdeepa-auth' });
@@ -53,8 +46,6 @@ export default function AccessControlPage() {
       setUser(res);
       setRole(res.role);
       setStatus(res.status);
-
-      toast.success('User details loaded successfully.');
     } catch (err) {
       console.error(err);
       setUser(null);
@@ -82,7 +73,7 @@ export default function AccessControlPage() {
       toast.success('Role updated successfully');
     } catch (err) {
       console.error(err);
-      toast.error('Failed to update role');
+      toast.error('Failed to update role. Please try again.');
     } finally {
       setUpdating(false);
     }
@@ -104,7 +95,7 @@ export default function AccessControlPage() {
       toast.success('Status updated successfully');
     } catch (err) {
       console.error(err);
-      toast.error('Failed to update status');
+      toast.error('Failed to update status. Please try again.');
     } finally {
       setUpdating(false);
     }
@@ -113,17 +104,12 @@ export default function AccessControlPage() {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-6 space-y-6">
       {/* Search */}
-      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex gap-3">
-        <Input
-          placeholder="Enter User ID..."
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleFetchUser()}
-        />
-        <Button onClick={handleFetchUser} disabled={loading}>
-          {loading ? 'Loading...' : 'Fetch User'}
-        </Button>
-      </div>
+      <SearchBar
+        placeholder="Enter User ID..."
+        type="User"
+        onSearch={handleFetch}
+        loading={loading}
+      />
 
       {/* User Info */}
       {user && (

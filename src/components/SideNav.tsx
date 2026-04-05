@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { UserButton, useUser } from '@clerk/react';
 import {
   Menu,
   UserCheck,
@@ -6,11 +8,11 @@ import {
   Award,
   ClipboardList,
   Shield,
+  UserRoundCog,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { USER_ROLES } from '@/constants/enums';
-import { UserButton, useUser } from '@clerk/react';
-import type { MenuItem, SideNavProps } from '@/constants/types';
+
+import type { MenuItem, SideNavProps } from '@/types/common/ui.types';
+import { USER_ROLES } from '@/types/user/user.enums';
 
 export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
   const { user, isLoaded } = useUser();
@@ -37,8 +39,8 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       icon: Shield,
       roles: [USER_ROLES.ADMIN],
       children: [
-        { name: 'User Management', path: 'admin/users' },
-        { name: 'Access Control', path: 'admin/access' },
+        { name: 'User Management', path: 'users' },
+        { name: 'Access Control', path: 'access' },
       ],
     },
     {
@@ -46,8 +48,8 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       icon: UserCheck,
       roles: [USER_ROLES.ADMIN],
       children: [
-        { name: 'All Teachers', path: 'admin/teachers/all' },
-        { name: 'Teacher Profile', path: 'admin/teachers/profile' },
+        { name: 'All Teachers', path: 'teachers/all' },
+        { name: 'Teacher Profile', path: 'teachers/profile' },
       ],
     },
     {
@@ -63,6 +65,12 @@ export default function SideNav({ collapsed, setCollapsed }: SideNavProps) {
       children: [
         { name: 'View Competitions', path: '/teachers/competitions/view' },
       ],
+    },
+    {
+      name: 'Account Management',
+      icon: UserRoundCog,
+      roles: [USER_ROLES.TEACHER],
+      children: [{ name: 'Profile', path: 'profile' }],
     },
     {
       name: 'Students',

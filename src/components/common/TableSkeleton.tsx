@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Table,
   TableHeader,
@@ -9,15 +7,15 @@ import {
   TableCell,
 } from '@/components/ui/table';
 
-interface LoadingTableSkeletonProps {
+interface TableSkeletonProps {
   columns: string[];
   rows?: number;
 }
 
-export default function LoadingTableSkeleton({
+export default function TableSkeleton({
   columns,
   rows = 5,
-}: LoadingTableSkeletonProps) {
+}: TableSkeletonProps) {
   return (
     <Table>
       {/* Header */}

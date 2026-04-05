@@ -1,10 +1,21 @@
 import { useUser, useAuth, SignInButton, SignUpButton } from '@clerk/react';
-import { USER_ROLES, USER_STATUS } from '@/constants/enums';
 import { Button } from '@/components/ui/button';
+import { USER_ROLES, USER_STATUS } from '@/types/user/user.enums';
+import { useEffect } from 'react';
 
 export default function HomePage() {
   const { user } = useUser();
-  const { isSignedIn } = useAuth();
+  const { getToken, isSignedIn } = useAuth();
+
+  // useEffect(() => {
+  //   const logToken = async () => {
+  //     if (isSignedIn) {
+  //       const token = await getToken({ template: 'dhamdeepa-auth' });
+  //       console.log('User Token:', token);
+  //     }
+  //   };
+  //   logToken();
+  // }, [isSignedIn, getToken]);
 
   let message = '';
   let bgColor = 'bg-gray-800';

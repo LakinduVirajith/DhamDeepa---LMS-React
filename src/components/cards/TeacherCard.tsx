@@ -1,8 +1,10 @@
+import { Eye, Mail, Phone } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye, Mail, Phone } from 'lucide-react';
-import { formatDate } from '@/utils/dateHelpers';
-import type { Teacher } from '@/constants/types';
+import UserAvatar from '../common/UserAvatar';
+
+import type { Teacher } from '@/types/teacher/teacher.types';
+import { formatDate } from '@/lib/dateFormatters';
 
 interface Props {
   teacher: Teacher;
@@ -17,20 +19,11 @@ export default function TeacherCard({ teacher, onView }: Props) {
       {/* Top Section */}
       <div className="flex items-start gap-3">
         {/* Avatar */}
-        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-          {user.avatarUrl ? (
-            <img
-              src={user.avatarUrl}
-              alt={user.firstName}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <span className="font-semibold">
-              {user.firstName[0]}
-              {user.lastName[0]}
-            </span>
-          )}
-        </div>
+        <UserAvatar
+          firstName={user.firstName}
+          lastName={user.lastName}
+          avatarUrl={user.avatarUrl}
+        />
 
         {/* Name + Email */}
         <div className="flex-1 min-w-0">

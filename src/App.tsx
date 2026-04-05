@@ -9,7 +9,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import UserManagementPage from './pages/dashboard/admin/UserManagementPage';
 import AccessControlPage from './pages/dashboard/admin/AccessControlPage';
 import AllTeachersPage from './pages/dashboard/admin/AllTeachersPage';
-import TeacherProfilePage from './pages/dashboard/admin/TeacherProfilePage';
+import AdminTeacherProfilePage from './pages/dashboard/admin/AdminTeacherProfilePage';
+import TeacherProfilePage from './pages/dashboard/teacher/TeacherProfilePage';
 
 function App() {
   return (
@@ -23,13 +24,19 @@ function App() {
         <Route path="privacy" element={<PrivacyPage />} />
       </Route>
 
-      {/* PRIVATE LAYOUT */}
-      <Route path="/dashboard" element={<DashboardLayout />}>
+      {/* PRIVATE LAYOUT - ADMIN */}
+      <Route path="/dashboard/admin" element={<DashboardLayout />}>
         <Route index element={<UserManagementPage />} />
-        <Route path="admin/users" element={<UserManagementPage />} />
-        <Route path="admin/access" element={<AccessControlPage />} />
-        <Route path="admin/teachers/all" element={<AllTeachersPage />} />
-        <Route path="admin/teachers/profile" element={<TeacherProfilePage />} />
+        <Route path="users" element={<UserManagementPage />} />
+        <Route path="access" element={<AccessControlPage />} />
+        <Route path="teachers/all" element={<AllTeachersPage />} />
+        <Route path="teachers/profile" element={<AdminTeacherProfilePage />} />
+      </Route>
+
+      {/* PRIVATE LAYOUT - TEACHER */}
+      <Route path="/dashboard/teachers" element={<DashboardLayout />}>
+        <Route index element={<TeacherProfilePage />} />
+        <Route path="profile" element={<TeacherProfilePage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
